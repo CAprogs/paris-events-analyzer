@@ -12,3 +12,10 @@ default_install_hook_types:
 - pre-commit
 - pre-push
 - commit-msg
+
+repos:
+- repo: https://github.com/fpgmaas/deptry.git
+  rev: "0.23.0"
+  hooks:
+    - id: deptry
+      args: [--ignore, DEP001]
