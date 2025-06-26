@@ -12,8 +12,8 @@
 
 </div>
 
-# Mission 2 - pre-commit
+# Mission 3 - commitizen & deptry
 
 ## Pas à pas 🐢
 
-Voir [Notion](https://tough-cyclone-37b.notion.site/Mission-2-pre-commit-20ac1cee419a802badefd1145627abcd)
+Voir [Notion](https://tough-cyclone-37b.notion.site/Mission-3-commitizen-deptry-20ac1cee419a8033aed1e15a5b207d9f)
