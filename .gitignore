@@ -8,3 +8,8 @@ wheels/
 
 # Virtual environments
 .venv
+images/
+datalake/
+pea_cache/
+main.py
+.env
