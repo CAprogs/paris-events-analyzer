@@ -6,7 +6,6 @@ dependencies = [
     "dotenv>=0.9.9",
     "minio>=7.2.15",
     "requests-cache>=1.2.1",
-    "rich>=14.0.0",
 ]
 
 [dependency-groups]
@@ -14,6 +13,7 @@ dev = [
     "commitizen>=4.8.3",
     "deptry>=0.23.0",
     "pre-commit>=4.2.0",
+    "ruff>=0.12.0",
     "rust-just>=1.40.0",
 ]
 
@@ -24,3 +24,134 @@ version_scheme = "semver2"
 version = "0.1.1"
 update_changelog_on_bump = true
 bump_message = "upgrade $current_version → $new_version"
+
+[tool.ruff]
+# Exclut ces répertoires et fichiers de l'analyse Ruff (linting et formatting)
+exclude = [
+    ".bzr",
+    ".direnv",
+    ".eggs",
+    ".git",
+    ".git-rewrite",
+    ".hg",
+    ".ipynb_checkpoints",
+    ".mypy_cache",
+    ".nox",
+    ".pants.d",
+    ".pyenv",
+    ".pytest_cache",
+    ".pytype",
+    ".ruff_cache",
+    ".svn",
+    ".tox",
+    ".venv",
+    ".vscode",
+    "__pypackages__",
+    "_build",
+    "buck-out",
+    "build",
+    "dist",
+    "node_modules",
+    "site-packages",
+    "venv",
+    ".pytest_cache",
+    "__pycache__",
+]
+
+# Désactive les corrections automatiques (seules les détections d'erreurs sont effectuées)
+fix = false
+
+# Version minimale requise de Ruff
+required-version = ">=0.6.8"
+
+# Longueur maximale des lignes de code
+line-length = 120
+
+# Largeur d'indentation en espaces
+indent-width = 4
+
+# Format de sortie des messages d'erreur (concis vs détaillé)
+output-format = "concise"
+
+[tool.ruff.lint]
+# Règles de linting activées
+select = [
+        "E4",      # Erreurs d'import (E401-E402)
+        "E5",      # Erreurs de longueur de ligne (E501-E502)
+        "E7",      # Erreurs d'indentation et d'espacement (E701-E743)
+        "F",       # Erreurs Pyflakes (variables non utilisées, imports, etc.)
+        "UP",      # Suggestions de mise à jour vers Python moderne (pyupgrade)
+        "D",       # Vérifications de docstrings (pydocstyle)
+        "N",       # Conventions de nommage PEP 8
+        "S",       # Vérifications de sécurité (bandit)
+        "B",       # Détection de bugs courants (flake8-bugbear)
+        "PT",      # Conventions pytest (flake8-pytest-style)
+        "RUF005",  # Détection de collections non packées dans les appels de fonction
+        "RUF019",  # Détection d'importations inutiles de __future__
+        "PLR1711", # Simplification des conditions avec return/raise
+        "PLR1722", # Utilisation de sys.exit() au lieu de exit()
+        "PLR1730", # Remplacement de if-else par min/max quand approprié
+        "PLR2044", # Ligne vide dans une méthode finale
+        "PLR5501", # Simplification de if-elif-else en elif
+        "ARG"      # Détection d'arguments inutilisés
+        ]
+
+# Règles de linting ignorées
+ignore = [
+    "D300",    # Utilisation de triple quotes pour les docstrings multilignes
+    "D206",    # Indentation des docstrings
+    "S608"     # Possible injection SQL dans les requêtes
+]
+
+# Toutes les règles peuvent être corrigées automatiquement
+fixable = ["ALL"]
+
+# Aucune règle n'est marquée comme non-corrigeable
+unfixable = []
+
+[tool.ruff.lint.per-file-ignores]
+# Ignore des règles spécifiques pour les fichiers __init__.py
+"__init__.py" = [
+    "E402",    # Imports après du code non-import
+    "D104"     # Docstring manquante dans un package public
+]
+
+[tool.ruff.lint.pydocstyle]
+# Convention de style pour les docstrings (Google, NumPy ou PEP257)
+convention = "google"
+
+[tool.ruff.lint.isort]
+# Nombre de lignes vides après les imports
+lines-after-imports = 2
+
+# Tri des imports par longueur dans chaque section
+length-sort-straight = true
+
+# Tri général par longueur
+length-sort = true
+
+# Désactive la séparation en sections (stdlib, third-party, local)
+no-sections = true
+
+[tool.ruff.lint.flake8-pytest-style]
+# Type de nommage pour les paramètres de parametrize (list ou tuple)
+parametrize-names-type = "list"
+
+# Type de valeurs pour les lignes de parametrize (list ou tuple)
+parametrize-values-row-type = "tuple"
+
+[tool.ruff.format]
+# Exclut les fichiers __init__.py du formatage
+exclude = ["__init__.py"]
+
+# Style de guillemets (double ou simple)
+quote-style = "double"
+
+# Style d'indentation (space ou tab)
+indent-style = "space"
+
+# Ignore la virgule finale magique de Black
+skip-magic-trailing-comma = true
+
+# Type de fin de ligne (auto, lf, crlf, cr)
+line-ending = "auto"
