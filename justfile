@@ -55,3 +55,7 @@ quality-default: quality
 quality-all: quality
 	@echo "\nRunning pre-commit on all files\n"
 	@uv run pre-commit run --all-files
+-   repo: https://github.com/commitizen-tools/commitizen
+    rev: v3.27.0 # Utilisez la version la plus récente
+    hooks:
+    -   id: commitizen
