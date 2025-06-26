@@ -29,7 +29,7 @@ def ingest(client: Minio, session: CachedSession, endpoints_path: str = "src/ing
                             data=data,
                             filetype=filetype
                             )
-    
+
     return result
 
 
@@ -57,4 +57,3 @@ if __name__ == "__main__":
         rprint("[bold red]Ingestion failed.[/bold red]")
     else:
         rprint("[bold yellow]Ingestion skipped: file already exists.[/bold yellow]")
-
