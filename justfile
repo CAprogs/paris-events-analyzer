@@ -34,3 +34,6 @@ comp-clean:
 comp-show:
     @echo "\nShowing docker-compose stack ..\n"
     @docker compose ps -a
+
+quality-all:
+    echo "Vérification de la qualité"

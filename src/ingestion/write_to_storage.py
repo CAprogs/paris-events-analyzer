@@ -7,12 +7,12 @@ from io import BytesIO
 
 
 def today_date() -> str:
-    return datetime.now().strftime("%Y-%m-%d")
+    return datetime.now().strftime('%Y-%m-%d')
 
 def day_before_date() -> str:
-    return (datetime.now() - timedelta(days=1)).strftime("%Y-%m-%d")
+    return (datetime.now() - timedelta(days=1)).strftime('%Y-%m-%d')
 
-def write_to_storage(client: Minio, data: BytesIO, filetype: Literal["parquet", "json", "csv"] = "parquet") -> bool | None:
+def write_to_storage(client: Minio, data: BytesIO, filetype: Literal['parquet', 'json', 'csv'] = 'parquet') -> bool | None:
     try:
         # Check if the bucket exists
         if not client.bucket_exists(filetype):
@@ -34,13 +34,13 @@ def write_to_storage(client: Minio, data: BytesIO, filetype: Literal["parquet", 
         # Upload and save the object
         # Here, 'data' is expected to be a bytes-like object
         result = client.put_object(filetype, filename, data, length=-1, part_size=5*1024*1024)
-        
+
         rprint(
-            "Created [bold blue]{0}[/bold blue] object; etag: [bold red]{1}[/bold red], version-id: [bold magenta]{2}[/bold magenta]".format(
+            'Created [bold blue]{0}[/bold blue] object; etag: [bold red]{1}[/bold red], version-id: [bold magenta]{2}[/bold magenta]'.format(
             result.object_name, result.etag, result.version_id,
             ),
                )
         return True
     except S3Error as e:
-        rprint("An error occurred.", e)
+        rprint('An error occurred.', e)
         return False
