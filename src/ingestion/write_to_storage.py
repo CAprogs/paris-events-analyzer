@@ -34,7 +34,7 @@ def write_to_storage(client: Minio, data: BytesIO, filetype: Literal["parquet", 
         # Upload and save the object
         # Here, 'data' is expected to be a bytes-like object
         result = client.put_object(filetype, filename, data, length=-1, part_size=5*1024*1024)
-        
+
         rprint(
             "Created [bold blue]{0}[/bold blue] object; etag: [bold red]{1}[/bold red], version-id: [bold magenta]{2}[/bold magenta]".format(
             result.object_name, result.etag, result.version_id,

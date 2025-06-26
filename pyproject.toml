@@ -8,9 +8,11 @@ dependencies = [
     "minio>=7.2.15",
     "requests-cache>=1.2.1",
     "rich>=14.0.0",
+    "uv>=0.7.15",
 ]
 
 [dependency-groups]
 dev = [
+    "pre-commit>=4.2.0",
     "rust-just>=1.40.0",
 ]
