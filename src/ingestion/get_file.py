@@ -14,6 +14,7 @@ def get_url_from_endpoints(endpoints_path: str = "src/ingestion/endpoints.json",
 
 
 def get_file_from_url(url: str | None, session: CachedSession) -> dict:
+
     if url is None:
         rprint("[bold red]No URL provided.[/bold red]")
         return {"status": 404, "from_cache": False, "response": None}

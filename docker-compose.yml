@@ -1,35 +1,36 @@
 name: paris-event-analyzer
 
 x-env-minio: &env-minio
-  environment:
-    MINIO_ROOT_USER: ${DBT_ENV_SECRET_MINIO_ACCESS_KEY:?error} # at least 3 characters
-    MINIO_ROOT_PASSWORD: ${DBT_ENV_SECRET_MINIO_SECRET_KEY:?error} # at least 8 characters
+    environment:
+        MINIO_ROOT_USER: ${DBT_ENV_SECRET_MINIO_ACCESS_KEY:?error} # at least 3 characters
+        MINIO_ROOT_PASSWORD: ${DBT_ENV_SECRET_MINIO_SECRET_KEY:?error} # at least 8 characters
 
 services:
-  minio:
-    image: quay.io/minio/minio
-    container_name: minio
-    ports:
-      - "9000:9000"  # API port
-      - "9001:9001"  # Console port
-    volumes:
-      - ./datalake:/data
-    <<: *env-minio
-    command: ["server", "/data", "--console-address", ":9001"]
-    restart: unless-stopped
-  createbuckets:
-    image: quay.io/minio/mc
-    depends_on:
-      - minio
-    <<: *env-minio
-    restart: on-failure
-    # create buckets 'parquet', 'csv', and 'json' 3 seconds after minio starts
-    entrypoint: >
-      /bin/sh -c "
-      sleep 3;
-      /usr/bin/mc alias set myminio http://minio:9000 $DBT_ENV_SECRET_MINIO_ACCESS_KEY $DBT_ENV_SECRET_MINIO_SECRET_KEY;
-      /usr/bin/mc mb myminio/parquet;
-      /usr/bin/mc mb myminio/csv;
-      /usr/bin/mc mb myminio/json;
-      exit 0;
-      "
+    minio:
+        image: quay.io/minio/minio
+        container_name: minio
+        ports:
+            - "9000:9000" # API port
+            - "9001:9001" # Console port
+        volumes:
+            - ./datalake:/data
+        <<: *env-minio
+        command: ["server", "/data", "--console-address", ":9001"]
+        restart: unless-stopped
+    createbuckets:
+        image: quay.io/minio/mc
+        depends_on:
+            - minio
+        <<: *env-minio
+        restart: on-failure
+        # create buckets 'parquet', 'csv', and 'json' 3 seconds after minio starts
+
+        entrypoint: >
+            /bin/sh -c "
+            sleep 3;
+            /usr/bin/mc alias set myminio http://minio:9000 $DBT_ENV_SECRET_MINIO_ACCESS_KEY $DBT_ENV_SECRET_MINIO_SECRET_KEY;
+            /usr/bin/mc mb myminio/parquet;
+            /usr/bin/mc mb myminio/csv;
+            /usr/bin/mc mb myminio/json;
+            exit 0;
+            "
