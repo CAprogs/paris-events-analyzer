@@ -55,5 +55,3 @@ quality-default: quality
 @REM quality-all: quality
 @REM 	@echo "\nRunning pre-commit on all files\n"
 @REM 	@uv run pre-commit run --all-files
-
-    
