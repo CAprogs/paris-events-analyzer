@@ -1,0 +1,32 @@
+# ================================================================
+# Fichier de configuration pour les pre-commit hooks
+# ================================================================
+
+repos:
+-   repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.6.0  # Il est bon d'utiliser une version récente et de la "locker"
+    hooks:
+    # --- Hook 1 : Supprime les espaces en fin de ligne ---
+    # Très utile pour garder un code propre.
+    -   id: debug-statements
+
+    # --- Hook 2 : S'assure qu'un fichier se termine par une ligne vide ---
+    # C'est une convention standard dans de nombreux éditeurs.
+    -   id: end-of-file-fixer
+
+    # --- Hook 3 : Vérifie la syntaxe des fichiers YAML ---
+    # Essentiel pour éviter les erreurs dans les fichiers de configuration.
+    -   id: check-yaml
+
+    # --- Hook 4 : Vérifie la syntaxe des fichiers JSON ---
+    # Utile si vous avez des fichiers de données ou de configuration en JSON.
+    -   id: check-json
+      
+    # --- Hook 5 : Empêche l'ajout de fichiers volumineux ---
+    # Prévient les commits accidentels de gros fichiers (ex: datasets, modèles).
+    # Par défaut, bloque les fichiers de plus de 5 Mo.
+    -   id: check-added-large-files
+
+    # --- Hook 6 (Bonus) : Vérifie les conflits de fusion ---
+    # Empêche de commiter des marqueurs de conflit comme '<<<<<<< HEAD'.
+    -   id: check-merge-conflict
