@@ -8,15 +8,18 @@ from datetime import timedelta
 from minio import Minio
 from io import BytesIO
 import os
+from typing import Literal
 
 log = logging.getLogger(__name__)
+
+filetype = Literal["parquet", "csv", "json"]  # Define the file types you expect
 
 
 def ingest(
     client: Minio,
     session: CachedSession,
     endpoints_path: str = "src/ingestion/endpoints.json",
-    filetype: str = "parquet",
+    filetype: filetype = "parquet",
 ) -> bool | None:
     """Ffff."""
     # Get the URL from endpoints.json
