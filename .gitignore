@@ -11,5 +11,4 @@ wheels/
 images/
 datalake/
 pea_cache/
-main.py
 .env
