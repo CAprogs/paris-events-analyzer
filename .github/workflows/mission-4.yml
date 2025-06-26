@@ -20,7 +20,7 @@ jobs:
         uses: actions/checkout@v4
       - name: Clone the pre-commit hook associated from Gist
         run: |
-          git clone https://gist.github.com/CAprogs/${{ env.PRECOMMIT_CI_CONFIG_GIST_ID }}.git tmp_gist 
+          git clone https://gist.github.com/CAprogs/${{ env.PRECOMMIT_CI_CONFIG_GIST_ID }}.git tmp_gist
       - name: Check file existence
         uses: andstor/file-existence-action@v3
         with:

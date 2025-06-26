@@ -211,3 +211,5 @@ pea_cache/
 
 # data files
 datalake/
+
+.github/
