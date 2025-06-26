@@ -30,7 +30,7 @@
 git clone <url_de_ton_dépôt> --branch mission-1-uv
 ```
 
-## Mise en place du stockage ( MinIO )
+## Mise en plastockage ( MinIO )
 
 1. Crée un fichier `.env` à la racine du projet avec les variables d'environnement suivantes :
 
