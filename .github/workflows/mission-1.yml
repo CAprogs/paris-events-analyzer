@@ -19,9 +19,6 @@ jobs:
     steps:
       - name: Check out ${{ github.repository }} repository code
         uses: actions/checkout@v4
-      - name: Clone the pre-commit hook associated from Gist
-        run: |
-          git clone https://gist.github.com/CAprogs/${{ env.PRECOMMIT_CI_CONFIG_GIST_ID }}.git
       - name: Check file existence
         uses: andstor/file-existence-action@v3
         with:
