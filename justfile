@@ -1,43 +1,38 @@
+# ==================================================================================== #
+#                       Fichier d'automatisation pour le projet
+#                    Utilisation : 'just <nom_de_la_recette>'
+# ==================================================================================== #
+
+# Configuration par défaut pour lister les commandes disponibles avec 'just'
 default:
     @just --list --list-prefix " ➫ " --unsorted
 
+# Charge les variables d'environnement si un fichier .env existe
 set dotenv-load
 
+# --- Variables de configuration ---
 STACK_NAME := "paris-event-analyzer"
 
-# Docker
+# --- Mise en place, Lancement et Qualité ---
 
-# Check the docker compose file consistency
-comp-check:
-    @echo "\nChecking docker-compose consistency ..\n"
-    @docker compose config --no-interpolate
+# Installe les dépendances ET configure les pre-commit hooks
+setup: pre-commit-setup
+    @echo "\n Mise en place de l'environnement et installation des dépendances..."
+    @uv sync --dev
 
-# Start the docker compose stack
-comp-start: comp-check
-    @echo "\nCreating the datalake directory if it does not exist .."
-    @mkdir -p datalake/
-    @sleep 2
-    @echo "\nStarting {{STACK_NAME}} stack..\n"
-    @docker compose up -d
+# Installe les pre-commit hooks pour le dépôt
+pre-commit-setup:
+    @echo "\n Installation des pre-commit hooks..."
+    @uv run pre-commit install
 
-# Restart the docker compose stack
-comp-restart:
-    @echo "\nRestarting {{STACK_NAME}} stack ..\n"
-    @docker compose restart {{STACK_NAME}}
+# Lance le script d'ingestion des données
+# !!! MODIFIEZ 'path/to/your/ingestion_script.py' avec le vrai chemin de votre script !!!
+ingest:
+    @echo " Lancement du script d'ingestion des données..."
+    @uv run python path/to/your/ingestion_script.py
 
-# Stop the docker compose stack and remove containers
-comp-clean:
-    @echo "\nStopping {{STACK_NAME}} stack ..\n"
-    @docker compose down
-
-# Show all docker compose stack
-comp-show:
-    @echo "\nShowing docker-compose stack ..\n"
-    @docker compose ps -a
-
-# Pre-commit
-
-# Run pre-commit checks and update hooks if possible
+# --- Pre-commit (Qualité du code) ---
+# Tâche de base : valide la config, installe et met à jour les hooks
 quality:
 	@echo "Checking pre-commit config consistency"
 	@uv run pre-commit validate-config
@@ -46,16 +41,43 @@ quality:
 	@echo "\nChecking for hook updates\n"
 	@uv run pre-commit autoupdate
 
-# Run pre-commit checks and hooks on modified files only
+# Lance les hooks sur les fichiers modifiés et "staged" (pour un commit)
 quality-default: quality
 	@echo "\nRunning pre-commit on staged files\n"
 	@uv run pre-commit run
 
-# Run pre-commit checks and hooks on a all project files
+# Lance les hooks sur TOUS les fichiers du projet
 quality-all: quality
 	@echo "\nRunning pre-commit on all files\n"
 	@uv run pre-commit run --all-files
--   repo: https://github.com/commitizen-tools/commitizen
-    rev: v3.27.0 # Utilisez la version la plus récente
-    hooks:
-    -   id: commitizen
+
+
+# --- Gestion de Docker ---
+
+# Vérifie la cohérence du fichier docker-compose
+comp-check:
+    @echo "\n Vérification de la cohérence de docker-compose...\n"
+    @docker compose config --no-interpolate
+
+# Démarre la stack Docker
+comp-start: comp-check
+    @echo "\n Création du dossier datalake s'il n'existe pas..."
+    @mkdir -p datalake/
+    @sleep 2
+    @echo "\n Démarrage de la stack {{STACK_NAME}}...\n"
+    @docker compose up -d
+
+# Redémarre la stack Docker
+comp-restart:
+    @echo "\n Redémarrage de la stack {{STACK_NAME}}...\n"
+    @docker compose restart
+
+# Arrête la stack Docker et supprime les conteneurs
+comp-clean:
+    @echo "\n Arrêt de la stack {{STACK_NAME}}...\n"
+    @docker compose down
+
+# Affiche les conteneurs de la stack
+comp-show:
+    @echo "\n Affichage de la stack docker-compose...\n"
+    @docker compose ps -a
