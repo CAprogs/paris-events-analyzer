@@ -1,0 +1,9 @@
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.6.0
+    hooks:
+      - id: trailing-whitespace               # supprime les espaces en fin de ligne
+      - id: end-of-file-fixer                 # force une ligne vide à la fin de chaque fichier
+      - id: check-yaml                        # valide que les fichiers YAML sont bien formés
+      - id: check-added-large-files           # empêche de commit des fichiers trop gros
+      - id: detect-aws-credentials            # bloque les fichiers contenant des clés AWS
