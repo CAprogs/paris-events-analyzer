@@ -16,7 +16,6 @@ jobs:
       DBT_ENV_SECRET_MINIO_ACCESS_KEY: ${{ secrets.DBT_ENV_SECRET_MINIO_ACCESS_KEY }}
       DBT_ENV_SECRET_MINIO_SECRET_KEY: ${{ secrets.DBT_ENV_SECRET_MINIO_SECRET_KEY }}
       PYTHON: "3.12"
-      INGESTION_ENTRYPOINT: "src/ingestion/main.py"
 
     steps:
       - name: Check out ${{ github.repository }} repository code
@@ -24,7 +23,7 @@ jobs:
       - name: Check file existence
         uses: andstor/file-existence-action@v3
         with:
-          files: ".pre-commit-config.yaml, pyproject.toml, uv.lock, justfile, ${{ env.INGESTION_ENTRYPOINT }}"
+          files: ".pre-commit-config.yaml, pyproject.toml, uv.lock, justfile, .sqlfluff.cfg"
           fail: true
       - name: Install uv
         uses: astral-sh/setup-uv@v6
@@ -38,8 +37,10 @@ jobs:
         run: uv python install ${{ env.PYTHON }}
       - name: Sync Python environment
         run: uv sync --frozen --all-group
+      - name: Install project in editable mode
+        run: uv pip install -e .
       - name: Run the pre-commit hooks via just
-        run: uv run just quality-all
+        run: uv run just quality-default
       - name: Create the datalake directory
         run: |
           mkdir -p src/ingestion/datalake
