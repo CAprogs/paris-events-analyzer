@@ -24,4 +24,3 @@ version = "0.1.1"
 update_changelog_on_bump = true
 bump_message = "release $current_version → $new_version [skip-ci]"
 # pyproject.toml
-
