@@ -2,13 +2,10 @@
 
 from minio import Minio
 from minio.error import S3Error
-import logging
+from logger.log_handler import logging as log
 from datetime import datetime, timedelta
 from typing import Literal
 from io import BytesIO
-
-
-log = logging.getLogger(__name__)
 
 
 def today_date() -> str:

@@ -1,11 +1,9 @@
 """fff."""
 
-import logging
+from logger.log_handler import logging as log
 from requests_cache import CachedSession
 from typing import Literal
 import json
-
-log = logging.getLogger(__name__)
 
 
 def get_url_from_endpoints(

@@ -55,3 +55,8 @@ quality-default: quality
 quality-all: quality
 	@echo "\nRunning pre-commit on all files\n"
 	@uv run pre-commit run --all-files
+
+
+start:
+    @echo "\nStarting the ingestion process\n"
+    @uv run python src/ingestion/main.py

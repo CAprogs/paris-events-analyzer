@@ -1,6 +1,6 @@
 """fff."""
 
-import logging
+from logger.log_handler import logging as log
 from write_to_storage import write_to_storage
 from get_file import get_file_from_url, get_url_from_endpoints
 from requests_cache import CachedSession
@@ -9,8 +9,6 @@ from minio import Minio
 from io import BytesIO
 import os
 from typing import Literal
-
-log = logging.getLogger(__name__)
 
 filetype = Literal["parquet", "csv", "json"]  # Define the file types you expect
 

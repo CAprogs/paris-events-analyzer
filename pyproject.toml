@@ -14,6 +14,7 @@ dev = [
     "deptry>=0.23.0",
     "mypy>=1.16.1",
     "pre-commit>=4.2.0",
+    "rich>=14.0.0",
     "ruff>=0.12.0",
     "rust-just>=1.40.0",
 ]
