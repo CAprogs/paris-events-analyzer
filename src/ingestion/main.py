@@ -29,7 +29,7 @@ def ingest(client: Minio, session: CachedSession, endpoints_path: str = "src/ing
                             data=data,
                             filetype=filetype
                             )
-    
+
     return result
 
 
@@ -38,6 +38,7 @@ if __name__ == "__main__":
     from dotenv import load_dotenv
 
     load_dotenv(".env")
+
 
     # Create a MinIO client instance
     client = Minio(endpoint="localhost:9000",
@@ -57,4 +58,3 @@ if __name__ == "__main__":
         rprint("[bold red]Ingestion failed.[/bold red]")
     else:
         rprint("[bold yellow]Ingestion skipped: file already exists.[/bold yellow]")
-
