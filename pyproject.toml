@@ -29,3 +29,4 @@ bump_message = "release $current_version → $new_version [skip-ci]"
 # Liste des dépendances à ignorer lors de la vérification.
 # On ignore les outils en ligne de commande qui ne sont pas importés dans le code.
 exclude = ["commitizen", "duckdb", "deptry"]
+extend_exclude = ['.venv', '.git']
