@@ -39,7 +39,7 @@ DBT_ENV_SECRET_MINIO_ACCESS_KEY=<TON_IDENTIFIANT_ICI>
 DBT_ENV_SECRET_MINIO_SECRET_KEY=<TON_MDP_ICI>
 ```
 
-2. Check la consistance du docker compose
+2. Check la consistacker compose
 
 ```bash
 docker compose config --no-interpolate --env-file .env
