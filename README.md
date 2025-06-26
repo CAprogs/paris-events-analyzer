@@ -12,42 +12,65 @@
 
 </div>
 
+# Mission 1 - UV
 
-## Prérequis
+## Ingestion & Stockage des données
 
-Avoir installé Python 3.8 ou supérieur manuellement sur votre machine.
+<div align="center">
 
-1. Créer un environnement virtuel avec une version particulière de Python
+<img src="images/ingestion.png" alt="archi" width="700" height="160">
 
-```bash
-python<version> -m venv .venv
-```
+</div>
 
-2. Activer l'environnement virtuel
+## Pré-requis
 
-- Sur Linux/Mac
-```bash
-source .venv/bin/activate
-```
-- Sur Windows
-```bash
-.venv\Scripts\activate
-```
+- **UV** : gestionaire tout en un d'environnement Python.
+- **Docker Desktop** : Pour exécuter la mise en place du stockage des données.
+- **Make** ou **Just** [Optionel]: Pour automatiser des tâches répétitives.
 
-3. Exécuter la commande suivante pour installer les dépendances
+
+## Cloner la branche
 
 ```bash
-pip install PACKAGE1 PACKAGE2 PACKAGE3
+git clone <url_de_ton_dépôt> --branch mission-1-uv
 ```
 
-4. Exporter les dépendances dans un fichier `requirements.txt`
 
+## Mise en place du stockage ( MinIO )
+
+1. Crée un fichier `.env` à la racine du projet avec les variables d'environnement suivantes :
 ```bash
-pip freeze > requirements.txt
-```
+DBT_ENV_SECRET_MINIO_ACCESS_KEY=<TON_IDENTIFIANT_ICI>
+DBT_ENV_SECRET_MINIO_SECRET_KEY=<TON_MDP_ICI>
+``` 
 
-5. Partager son code et demander aux autres d'utiliser le `requirements.txt`
-
+2. Check la consistance du docker compose
 ```bash
-pip install -r requirements.txt
+docker compose config --no-interpolate --env-file .env
 ```
+
+3. Si tout est bon, démarre les services Docker en t'assurant d'avoir créer le dossier de persistance `datalake` à la racine du projet :
+```bash
+docker compose up -d
+```
+
+4. Vérifie que les services ont bien démarrés :
+```bash
+docker compose ps -a
+```
+
+5. Tu pourras stoper les services à tout moment avec :
+```bash
+docker compose down
+```
+
+Les services suivants seront déployés :
+
+| Service          | default URL
+| :--------------- |:---------------:|
+| MinIO            | [**WebUI**](http://localhost:9001)  |
+| MinIO            | [**API endpoint**](http://localhost:9000)  |
+
+## Pas à pas 🐢
+ 
+Voir [Notion]()

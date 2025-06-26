@@ -8,7 +8,7 @@ from io import BytesIO
 import os
 
 
-def ingest(client: Minio, session: CachedSession, endpoints_path: str = "ingestion/endpoints.json", filetype: str = "parquet") -> bool | None:
+def ingest(client: Minio, session: CachedSession, endpoints_path: str = "src/ingestion/endpoints.json", filetype: str = "parquet") -> bool | None:
 
     # Get the URL from endpoints.json
     url = get_url_from_endpoints(endpoints_path=endpoints_path,
@@ -34,10 +34,10 @@ def ingest(client: Minio, session: CachedSession, endpoints_path: str = "ingesti
 
 
 if __name__ == "__main__":
-    
+
     from dotenv import load_dotenv
 
-    load_dotenv(".envrc")
+    load_dotenv(".env")
 
     # Create a MinIO client instance
     client = Minio(endpoint="localhost:9000",
