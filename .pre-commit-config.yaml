@@ -1,0 +1,45 @@
+default_install_hook_types: [pre-commit, pre-push, commit-msg]
+
+repos:
+    - repo: https://github.com/pre-commit/pre-commit-hooks
+      rev: v5.0.0
+      hooks:
+          - id: trailing-whitespace
+          - id: end-of-file-fixer
+          - id: check-yaml
+          - id: check-added-large-files
+          - id: check-toml
+    - repo: https://github.com/commitizen-tools/commitizen
+      rev: v4.8.3
+      hooks:
+          - id: commitizen
+            stages: [commit-msg]
+          - id: commitizen-branch
+            stages: [pre-push]
+    - repo: https://github.com/fpgmaas/deptry.git
+      rev: "0.23.0"
+      hooks:
+          - id: deptry
+            args: [--ignore, DEP001]
+    - repo: https://github.com/astral-sh/ruff-pre-commit
+      rev: v0.11.10
+      hooks:
+          - id: ruff # `ruff check`
+            args: [--fix]
+          - id: ruff-format # `ruff format`
+    - repo: https://github.com/pre-commit/mirrors-mypy
+      rev: v1.15.0
+      hooks:
+          - id: mypy
+      verbose: true
+      args:
+          [
+              --install-types,
+              --non-interactive,
+              --pretty,
+              --disallow-untyped-defs,
+              --strict-equality,
+              --warn-no-return,
+              --ignore-missing-imports,
+              --no-namespace-packages,
+          ]
