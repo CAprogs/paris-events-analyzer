@@ -47,11 +47,11 @@ quality:
 	@uv run pre-commit autoupdate
 
 # Run pre-commit checks and hooks on modified files only
-quality-default:
+quality-default: quality
 	@echo "\nRunning pre-commit on staged files\n"
-	@uv run pre-commit run .
+	@uv run pre-commit run
 
 # Run pre-commit checks and hooks on a all project files
-quality-all:
+quality-all: quality
 	@echo "\nRunning pre-commit on all files\n"
 	@uv run pre-commit run --all-files
