@@ -1,18 +1,26 @@
+# ==================================================================================== #
+#                       Fichier d'automatisation pour le projet
+#                    Utilisation : 'just <nom_de_la_recette>'
+# ==================================================================================== #
+
+# Configuration par défaut pour lister les commandes disponibles avec 'just'
 default:
     @just --list --list-prefix " ➫ " --unsorted
 
+# Charge les variables d'environnement si un fichier .env existe
 set dotenv-load
 
+# --- Variables de configuration ---
 STACK_NAME := "paris-event-analyzer"
 
-# Docker
+# --- Gestion de Docker ---
 
-# Check the docker compose file consistency
+# Vérifie la cohérence du fichier docker-compose
 comp-check:
     @echo "\nChecking docker-compose consistency ..\n"
     @docker compose config --no-interpolate
 
-# Start the docker compose stack
+# Démarre la stack Docker
 comp-start: comp-check
     @echo "\nCreating the datalake directory if it does not exist .."
     @mkdir -p datalake/
@@ -20,35 +28,37 @@ comp-start: comp-check
     @echo "\nStarting {{STACK_NAME}} stack..\n"
     @docker compose up -d
 
-# Restart the docker compose stack
+# Redémarre la stack Docker
 comp-restart:
     @echo "\nRestarting {{STACK_NAME}} stack ..\n"
-    @docker compose restart {{STACK_NAME}}
+    @docker compose restart
 
-# Stop the docker compose stack and remove containers
+# Arrête la stack Docker et supprime les conteneurs
 comp-clean:
     @echo "\nStopping {{STACK_NAME}} stack ..\n"
     @docker compose down
 
-# Show all docker compose stack
+# Affiche les conteneurs de la stack
 comp-show:
     @echo "\nShowing docker-compose stack ..\n"
     @docker compose ps -a
--commit checks and update hooks if possible
+
+# --- Pre-commit (Qualité du code) ---
+# Tâche de base : valide la config, installe et met à jour les hooks
 quality:
-	@echo "Checking pre-commit config consistency"
-	@uv run pre-commit validate-config
-	@echo "\nInstalling pre-commit hooks\n"
-	@uv run pre-commit install --install-hooks
-	@echo "\nChecking for hook updates\n"
-	@uv run pre-commit autoupdate
+    @echo "Checking pre-commit config consistency"
+    @uv run pre-commit validate-config
+    @echo "\nInstalling pre-commit hooks\n"
+    @uv run pre-commit install --install-hooks
+    @echo "\nChecking for hook updates\n"
+    @uv run pre-commit autoupdate
 
-# Run pre-commit checks and hooks on modified files only
+# Lance les hooks sur les fichiers modifiés et "staged" (pour un commit)
 quality-default: quality
-	@echo "\nRunning pre-commit on staged files\n"
-	@uv run pre-commit run
+    @echo "\nRunning pre-commit on staged files\n"
+    @uv run pre-commit run
 
-# Run pre-commit checks and hooks on a all project files
+# Lance les hooks sur TOUS les fichiers du projet
 quality-all: quality
-	@echo "\nRunning pre-commit on all files\n"
-	@uv run pre-commit run --all-files
+    @echo "\nRunning pre-commit on all files\n"
+    @uv run pre-commit run --all-files
