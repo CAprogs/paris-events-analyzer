@@ -25,3 +25,7 @@ version = "0.1.1"
 update_changelog_on_bump = true
 bump_message = "release $current_version → $new_version [skip-ci]"
 # pyproject.toml
+[tool.deptry]
+# Liste des dépendances à ignorer lors de la vérification.
+# On ignore les outils en ligne de commande qui ne sont pas importés dans le code.
+exclude = ["commitizen", "duckdb", "deptry"]
