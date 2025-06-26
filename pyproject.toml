@@ -12,6 +12,7 @@ dependencies = [
 dev = [
     "commitizen>=4.8.3",
     "deptry>=0.23.0",
+    "mypy>=1.16.1",
     "pre-commit>=4.2.0",
     "ruff>=0.12.0",
     "rust-just>=1.40.0",
