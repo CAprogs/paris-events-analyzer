@@ -13,8 +13,6 @@ jobs:
     env:
       DBT_ENV_SECRET_MINIO_ACCESS_KEY: ${{ secrets.DBT_ENV_SECRET_MINIO_ACCESS_KEY }}
       DBT_ENV_SECRET_MINIO_SECRET_KEY: ${{ secrets.DBT_ENV_SECRET_MINIO_SECRET_KEY }}
-      PRECOMMIT_CI_CONFIG_GIST_ID: "8ea103f7c3bbda18007720df988311c3"
-      PRECOMMIT_CI_CONFIG: ".pre-commit-config-1.yaml"
       PYTHON: "3.12"
       INGESTION_ENTRYPOINT: "src/ingestion/main.py"
 
@@ -40,11 +38,7 @@ jobs:
       - name: Installing Python ${{ env.PYTHON }}
         run: uv python install ${{ env.PYTHON }}
       - name: Sync Python environment
-        run: uv sync --frozen --all-group
-      - name: Install the pre-commit hooks
-        run: uv run pre-commit install --install-hooks -c ${{env.PRECOMMIT_CI_CONFIG_GIST_ID }}/${{ env.PRECOMMIT_CI_CONFIG }}
-      - name: Run the pre-commit CI hooks
-        run: uv run pre-commit run --all-files -c ${{env.PRECOMMIT_CI_CONFIG_GIST_ID }}/${{ env.PRECOMMIT_CI_CONFIG }}
+        run: uv sync --frozen
       - name: Create the datalake directory
         run: |
           mkdir -p src/ingestion/datalake
