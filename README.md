@@ -26,7 +26,6 @@
 
 - **UV** : gestionaire tout en un d'environnement Python.
 - **Docker Desktop** : Pour exécuter la mise en place du stockage des données.
-- **Make** ou **Just** [Optionel]: Pour automatiser des tâches répétitives.
 
 
 ## Cloner la branche
