@@ -12,7 +12,7 @@
 
 </div>
 
-# Mission 2 - pre-commit
+# Mission 4 - Ruff & Mypy
 
 ## Pas à pas 🐢
 
