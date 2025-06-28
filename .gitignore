@@ -8,3 +8,7 @@ wheels/
 
 # Virtual environments
 .venv
+images/
+datalake/
+pea_cache/
+.env
