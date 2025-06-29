@@ -2,7 +2,7 @@ dbt_paris_event_analyzer:
   outputs:
     prod:
       type: duckdb
-      path: warehouse/prod.duckdb
+      path: '{{ env_var("PWD") }}/warehouse/prod.duckdb'
       threads: 4
       extensions:
         - httpfs

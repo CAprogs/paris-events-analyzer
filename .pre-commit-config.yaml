@@ -1,3 +1,4 @@
+exclude: '^src/exposition/'
 
 default_install_hook_types: [pre-commit, pre-push, commit-msg]
 
@@ -21,9 +22,9 @@ repos:
   rev: "0.23.0"
   hooks:
     - id: deptry
-      args: [--ignore, DEP001]
+      args: [--ignore, "DEP001,DEP003", --per-rule-ignores, "DEP002=dbt-core|fsspec|dbt-duckdb"]
 - repo: https://github.com/astral-sh/ruff-pre-commit
-  rev: v0.12.0
+  rev: v0.12.1
   hooks:
     - id: ruff # `ruff check`
       args: [ --fix ]
@@ -34,3 +35,12 @@ repos:
     - id: mypy
       verbose: true
       args: [ --install-types, --non-interactive, --pretty, --disallow-untyped-defs, --strict-equality,  --warn-no-return, --ignore-missing-imports, --no-namespace-packages]
+- repo: https://github.com/sqlfluff/sqlfluff
+  rev: 3.4.1
+  hooks:
+    - id: sqlfluff-lint # returns linting errors.
+      additional_dependencies: ['dbt-core>=1.10.2', 'dbt-duckdb>=1.9.4', 'sqlfluff-templater-dbt>=3.4.1', 'fsspec[s3]>=2025.5.1']
+      args: [--config, .sqlfluff, src/transformation/dbt_paris_event_analyzer/]
+    - id: sqlfluff-fix # attempts to fix rule violations.
+      args: [--config, .sqlfluff, --show-lint-violations,  src/transformation/dbt_paris_event_analyzer/]
+      additional_dependencies: ['dbt-core>=1.10.2', 'dbt-duckdb>=1.9.4', 'sqlfluff-templater-dbt>=3.4.1', 'fsspec[s3]>=2025.5.1']

@@ -75,9 +75,9 @@ def serve(tables: list[Table]) -> None:
 
     if selected_handicap != "Tous":
         if selected_handicap == "Accessible":
-            filtered_df = filtered_df[filtered_df["is_handicap_friendly"] is True]
+            filtered_df = filtered_df[filtered_df["is_handicap_friendly"] == True]  # noqa: E712
         else:
-            filtered_df = filtered_df[filtered_df["is_handicap_friendly"] is False]
+            filtered_df = filtered_df[filtered_df["is_handicap_friendly"] == False]  # noqa: E712
 
     if selected_zipcode != "Tous":
         filtered_df = filtered_df[filtered_df["address_zipcode"].astype(str) == selected_zipcode]
@@ -91,7 +91,7 @@ def serve(tables: list[Table]) -> None:
         st.metric("Nb événements", len(filtered_df))
 
     with stats_col2:
-        accessible_count = len(filtered_df[filtered_df["is_handicap_friendly"] is True])
+        accessible_count = len(filtered_df[filtered_df["is_handicap_friendly"] == True])  # noqa: E712
         st.metric("Avec accessibilité ♿", accessible_count)
 
     with stats_col3:
