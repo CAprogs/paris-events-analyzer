@@ -58,7 +58,7 @@ docker compose up -d
 docker compose ps -a
 ```
 
-5. Tu pourras stoper les services à tout moment avec :
+5. Tu pourras stopper les services à tout moment avec :
 ```bash
 docker compose down
 ```
