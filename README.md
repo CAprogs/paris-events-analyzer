@@ -45,7 +45,7 @@ DBT_ENV_SECRET_MINIO_SECRET_KEY=<TON_MDP_ICI>
 
 2. Check la consistance du docker compose
 ```bash
-docker compose config --no-interpolate --env-file .env
+docker compose config --no-interpolate
 ```
 
 3. Si tout est bon, démarre les services Docker en t'assurant d'avoir créer le dossier de persistance `datalake` à la racine du projet :
