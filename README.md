@@ -24,7 +24,7 @@ Vous retrouverez davantage d'informations sur les données ici : [Que Faire à P
 
 ### Architecture du projet
 
-<img src="images/project-archi.png" alt="archi" width="1200" height="160">
+<img src="images/project-archi.png" alt="archi" width="1200" height="120">
 
 
 <details>
