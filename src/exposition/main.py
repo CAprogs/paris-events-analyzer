@@ -135,6 +135,9 @@ def serve(tables: list[Table]) -> None:
         available_columns = [col for col in display_columns if col in filtered_df.columns]
 
         if not filtered_df.empty:
+            # Reset index to ensure proper row selection after filtering
+            filtered_df = filtered_df.reset_index(drop=True)
+            
             # --> DATAFRAME SECTION
             df_widget = st.dataframe(
                 filtered_df[available_columns], use_container_width=True, on_select="rerun", selection_mode="single-row"
@@ -142,8 +145,9 @@ def serve(tables: list[Table]) -> None:
 
             if df_widget.selection["rows"]:
                 selected_index = df_widget.selection["rows"][0]
+                # Use iloc for positional indexing on the reset dataframe
                 st.session_state["event_details"] = {
-                    k: filtered_df.loc[selected_index][k]
+                    k: filtered_df.iloc[selected_index][k]
                     for k, _ in st.session_state["event_details"].items()
                     if k in filtered_df.columns
                 }
