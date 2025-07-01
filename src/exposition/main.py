@@ -75,9 +75,9 @@ def serve(tables: list[Table]) -> None:
 
     if selected_handicap != "Tous":
         if selected_handicap == "Accessible":
-            filtered_df = filtered_df[filtered_df["is_handicap_friendly"] is True]
+            filtered_df = filtered_df[filtered_df["is_handicap_friendly"] == True]  # noqa: E712
         else:
-            filtered_df = filtered_df[filtered_df["is_handicap_friendly"] is False]
+            filtered_df = filtered_df[filtered_df["is_handicap_friendly"] == False]  # noqa: E712
 
     if selected_zipcode != "Tous":
         filtered_df = filtered_df[filtered_df["address_zipcode"].astype(str) == selected_zipcode]
@@ -91,7 +91,7 @@ def serve(tables: list[Table]) -> None:
         st.metric("Nb événements", len(filtered_df))
 
     with stats_col2:
-        accessible_count = len(filtered_df[filtered_df["is_handicap_friendly"] is True])
+        accessible_count = len(filtered_df[filtered_df["is_handicap_friendly"] == True])  # noqa: E712
         st.metric("Avec accessibilité ♿", accessible_count)
 
     with stats_col3:
@@ -135,6 +135,9 @@ def serve(tables: list[Table]) -> None:
         available_columns = [col for col in display_columns if col in filtered_df.columns]
 
         if not filtered_df.empty:
+            # Reset index to ensure proper row selection after filtering
+            filtered_df = filtered_df.reset_index(drop=True)
+
             # --> DATAFRAME SECTION
             df_widget = st.dataframe(
                 filtered_df[available_columns], use_container_width=True, on_select="rerun", selection_mode="single-row"
@@ -142,8 +145,9 @@ def serve(tables: list[Table]) -> None:
 
             if df_widget.selection["rows"]:
                 selected_index = df_widget.selection["rows"][0]
+                # Use iloc for positional indexing on the reset dataframe
                 st.session_state["event_details"] = {
-                    k: filtered_df.loc[selected_index][k]
+                    k: filtered_df.iloc[selected_index][k]
                     for k, _ in st.session_state["event_details"].items()
                     if k in filtered_df.columns
                 }

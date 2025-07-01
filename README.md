@@ -12,11 +12,11 @@
 
 </div>
 
-# Mission 5 - pre-commit
+# Mission 5 - sqlfluff
 
 ## Transformation & Exposition de la donnée
 
-<img src="images/project-archi.png" alt="logo" width="1200" height="160">
+<img src="images/project-archi.png" alt="logo" width="1200" height="120">
 
 ## Pas à pas 🐢
 
