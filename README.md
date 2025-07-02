@@ -135,9 +135,14 @@ Pourquoi ce choix ?
 
 ## Installation
 
-Installer les dépendances du projet
+1. Installer les dépendances du projet
 ```bash
 uv sync --frozen --all-groups
+```
+
+2. Installer le projet en mode `editable`
+```bash
+uv pip install -e .
 ```
 
 > [!IMPORTANT]
@@ -155,7 +160,7 @@ uv sync --frozen --all-groups
 >  - `DBT_ENV_SECRET_MINIO_SECRET_KEY` : au moins 8 caractères, correspond à votre mot de passe
 >
 
-Déployer les services nécessaires
+3. Déployer les services nécessaires
 ```bash
 uv run just comp-start
 ```
