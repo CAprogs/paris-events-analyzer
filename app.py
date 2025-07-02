@@ -2,8 +2,8 @@ from src.exposition.tables import Table
 from src.exposition.main import serve
 import dotenv
 
-# Load environment variables from a .envrc file
-dotenv.load_dotenv(".envrc")
+# Load environment variables from a .env file
+dotenv.load_dotenv()
 
 tables = [
     Table(database="warehouse/prod.duckdb", schema="gold", name="today_events"),
