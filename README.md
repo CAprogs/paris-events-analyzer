@@ -127,3 +127,6 @@ Pourquoi ce choix ?
 | `contact_soundcloud`| URL de la page Soundcloud associée. | VARCHAR | `https://soundcloud.com/bel_ete_canal` |
 
 </details>
+
+> [!NOTE]
+> Si vous n'êtes intéressés que par le projet final, vous pouvez le retrouver [ici](https://github.com/CAprogs/paris-events-analyzer/tree/end)
