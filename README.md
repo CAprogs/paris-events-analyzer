@@ -4,8 +4,7 @@
 <img src="images/datanova-logo.png" alt="logo" width="500" height="160">
 
 
-
-![GitHub](https://img.shields.io/github/license/CAprogs/paris-events-analyzer?color=blue)
+![GitHub](https://img.shields.io/github/license/CAprogs/paris-events-analyzer)
 
 
 # PARIS EVENTS ANALYZER
