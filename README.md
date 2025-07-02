@@ -1,20 +1,14 @@
 
 <div align="center">
 
-<img src="images/datanova-logo.png" alt="logo" width="500" height="160">
-
+# PARIS EVENTS ANALYZER
 
 ![GitHub](https://img.shields.io/github/license/CAprogs/paris-events-analyzer)
-
-
-# PARIS EVENTS ANALYZER
 
 </div>
 
 
 ## À propos
-
-Ce projet est la propriété de **DataNova**, startup spécialisée dans l'analyse de données Open-Source.
 
 L'objectif principal de ce projet est de mettre en valeur les données ouvertes fournies par la ville de Paris pour analyser les événements culturels, sportifs et communautaires.
 
@@ -130,7 +124,7 @@ Pourquoi ce choix ?
 
 ## Prérequis
 
-- [Docker Desktop](https://docs.docker.com/get-started/introduction/get-docker-desktop/)
+- [Docker](https://docs.docker.com/get-started/introduction/get-docker-desktop/)
 - [UV](https://docs.astral.sh/uv/getting-started/installation/)
 
 ## Installation
@@ -147,7 +141,8 @@ uv pip install -e .
 
 > [!IMPORTANT]
 > Avant de lancer le projet, assurez-vous que :
-> - Le `docker deamon` est en cours d'exécution (Docker Desktop doit être lancé)
+> - Le `docker daemon` est en cours d'exécution (Docker Desktop doit être lancé)
+> - Vous avez créer le dossier de persistance `datalake` à la racine de votre projet
 > - Vous avez configuré les variables d'environnement nécessaires dans le fichier `.env` à la racine du projet comme suit :
 >   ```bash
 >   DBT_ENV_SECRET_MINIO_ACCESS_KEY="<YOUR_ACCESS_KEY>"
@@ -170,3 +165,7 @@ uv run just comp-start
 ```bash
 uv run just final-workflow
 ```
+
+# Auteur
+
+- [CAprogs](https://github.com/CAprogs)
