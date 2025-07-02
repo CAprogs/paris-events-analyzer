@@ -5,7 +5,7 @@
 
 
 
-![GitHub](https://img.shields.io/github/license/CAprogs/paris-events-analyzer?color=blue)
+![GitHub](https://img.shields.io/github/license/CAprogs/paris-events-analyzer)
 
 
 # PARIS EVENTS ANALYZER
