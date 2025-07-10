@@ -22,8 +22,18 @@ jobs:
       - name: Check file existence
         uses: andstor/file-existence-action@v3
         with:
-          files: "pyproject.toml, uv.lock, justfile, ${{ env.INGESTION_ENTRYPOINT }}"
+          files: "pyproject.toml, uv.lock, justfile, .python-version, ${{ env.INGESTION_ENTRYPOINT }}"
           fail: true
+      - name: Check file absence
+        run: |
+          [ ! -f ".env" ]
+          [ ! -f "requirements.in" ]
+          [ ! -e "pea_cache/" ]
+          [ ! -e "datalake/" ]
+      - name: Check Python pinned version
+        run: grep -Fx ${{ env.PYTHON }} .python-version
+      - name: Check packages installation
+        run: (for f in "dotenv" "duckdb" "minio" "requests-cache" "rich"; do grep -qF "$f" pyproject.toml && echo "✅ $f" || echo "❌ $f"; done; exit 1)
       - name: Install uv
         uses: astral-sh/setup-uv@v6
         with:
@@ -49,4 +59,4 @@ jobs:
       - name: Run ingestion workflow
         run: uv run python ${{ env.INGESTION_ENTRYPOINT }}
       - name: Reveal Secret
-        run: echo "First secret unlocked -> ${{ secrets.INDICE_1 }}"
+        run: echo "First secret unlocked -> ${{ env.INDICE_1 }}"
