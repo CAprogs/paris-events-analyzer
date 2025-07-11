@@ -41,4 +41,4 @@ jobs:
       - name: Run the pre-commit hooks via just
         run: uv run just quality-all
       - name: Reveal Secret
-        run: echo "Second secret unlocked -> ${{ env.INDICE_2 }}"
+        run: echo "Second secret unlocked -> ${{ vars.INDICE_2 }}"
