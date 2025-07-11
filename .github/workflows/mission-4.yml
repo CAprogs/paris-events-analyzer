@@ -25,7 +25,7 @@ jobs:
         run: |
           [ ! -e "src/paris_events_analyzer.egg-info/" ]
       - name: Check packages installation
-        run: (for f in "ruff" "mypy"; do grep -qF "$f" pyproject.toml && echo "✅ $f" || echo "❌ $f"; done; exit 1)
+        run: (for f in "ruff" "mypy"; do if grep -qF "$f" pyproject.toml; then echo "✅ $f"; else echo "❌ $f" && exit 1; fi; done;)
       - name: Check logger implementation
         run: |
           [ $(grep -Fr --include="*.py" "rprint(" . | wc -l) = 0 ]
