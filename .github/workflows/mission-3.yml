@@ -11,7 +11,6 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
-      PRECOMMIT_CI_CONFIG: ".pre-commit-config.yaml"
       PYTHON: "3.12"
 
     steps:
@@ -22,6 +21,8 @@ jobs:
         with:
           files: ".pre-commit-config.yaml, pyproject.toml, uv.lock, justfile"
           fail: true
+      - name: Check packages installation
+        run: (for f in "commitizen" "deptry"; do grep -qF "$f" pyproject.toml && echo "✅ $f" || echo "❌ $f"; done; exit 1)
       - name: Install uv
         uses: astral-sh/setup-uv@v6
         with:
@@ -37,4 +38,4 @@ jobs:
       - name: Run the pre-commit hooks via just
         run: uv run just quality-all
       - name: Reveal Secret
-        run: echo "Third secret unlocked -> ${{ secrets.INDICE_3 }}"
+        run: echo "Third secret unlocked -> ${{ env.INDICE_3 }}"
