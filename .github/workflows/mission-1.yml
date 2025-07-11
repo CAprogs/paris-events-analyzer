@@ -49,10 +49,15 @@ jobs:
           mkdir -p src/ingestion/datalake
           echo "Datalake directory created successfully"
           sleep 2
+      - name: Create temporary .env file for Docker Compose
+        run: |
+          echo "DBT_ENV_SECRET_MINIO_ACCESS_KEY=${{ secrets.DBT_ENV_SECRET_MINIO_ACCESS_KEY }}" > .env
+          echo "DBT_ENV_SECRET_MINIO_SECRET_KEY=${{ secrets.DBT_ENV_SECRET_MINIO_SECRET_KEY }}" >> .env
       - name: Setting up MinIO
         run: |
-          DBT_ENV_SECRET_MINIO_SECRET_KEY=${{ secrets.DBT_ENV_SECRET_MINIO_SECRET_KEY }} DBT_ENV_SECRET_MINIO_ACCESS_KEY=${{ secrets.DBT_ENV_SECRET_MINIO_ACCESS_KEY }} docker compose up -d
-          sleep 2
+          docker compose up -d
+      - name: Remove temporary .env file
+        run: rm -f .env
       - name: Run ingestion workflow
         run: uv run python ${{ env.INGESTION_ENTRYPOINT }}
       - name: Reveal Secret
