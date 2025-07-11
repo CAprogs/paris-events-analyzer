@@ -59,4 +59,4 @@ jobs:
       - name: Run ingestion workflow
         run: uv run python ${{ env.INGESTION_ENTRYPOINT }}
       - name: Reveal Secret
-        run: echo "First secret unlocked -> ${{ env.INDICE_1 }}"
+        run: echo "First secret unlocked -> ${{ vars.INDICE_1 }}"
