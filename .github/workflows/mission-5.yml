@@ -63,4 +63,4 @@ jobs:
       - name: Run the transformation workflow
         run: just dbt-run
       - name: Reveal Secret
-        run: echo "Last secret unlocked -> ${{ env.INDICE_5 }}"
+        run: echo "Last secret unlocked -> ${{ vars.INDICE_5 }}"
