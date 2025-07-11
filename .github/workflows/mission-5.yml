@@ -23,8 +23,15 @@ jobs:
       - name: Check file existence
         uses: andstor/file-existence-action@v3
         with:
-          files: ".pre-commit-config.yaml, pyproject.toml, uv.lock, justfile, .sqlfluff.cfg"
+          files: ".sqlfluff, .sqlfluffignore"
           fail: true
+      - name: Check logger implementation
+        run: |
+          [ $(grep -Fr --include="*.py" "rprint(" . | wc -l) = 0 ]
+          [ $(grep -Fr --include="*.py" "log." . | wc -l) = 12 ]
+      - name: Check Pre-commit added repo
+        run: |
+          [ $(grep -F "repo:" .pre-commit-config.yaml | wc -l) = 6 ]
       - name: Install uv
         uses: astral-sh/setup-uv@v6
         with:
@@ -36,7 +43,7 @@ jobs:
       - name: Installing Python ${{ env.PYTHON }}
         run: uv python install ${{ env.PYTHON }}
       - name: Sync Python environment
-        run: uv sync --frozen --all-group
+        run: uv sync --frozen
       - name: Install project in editable mode
         run: uv pip install -e .
       - name: Run the pre-commit hooks via just
@@ -56,4 +63,4 @@ jobs:
       - name: Run the transformation workflow
         run: just dbt-run
       - name: Reveal Secret
-        run: echo "Last secret unlocked -> ${{ secrets.INDICE_5 }}"
+        run: echo "Last secret unlocked -> ${{ vars.INDICE_5 }}"
