@@ -11,8 +11,6 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
-      DBT_ENV_SECRET_MINIO_ACCESS_KEY: ${{ secrets.DBT_ENV_SECRET_MINIO_ACCESS_KEY }}
-      DBT_ENV_SECRET_MINIO_SECRET_KEY: ${{ secrets.DBT_ENV_SECRET_MINIO_SECRET_KEY }}
       PYTHON: "3.12"
       INGESTION_ENTRYPOINT: "src/ingestion/main.py"
 
@@ -52,10 +50,9 @@ jobs:
           echo "Datalake directory created successfully"
           sleep 2
       - name: Setting up MinIO
-        uses: hoverkraft-tech/compose-action@v2.2.0
-        with:
-          compose-file: "docker-compose.yml"
-          up-flags: -d
+        run: |
+          DBT_ENV_SECRET_MINIO_SECRET_KEY=${{ secrets.DBT_ENV_SECRET_MINIO_SECRET_KEY }} DBT_ENV_SECRET_MINIO_ACCESS_KEY=${{ secrets.DBT_ENV_SECRET_MINIO_ACCESS_KEY }} docker compose up -d
+          sleep 2
       - name: Run ingestion workflow
         run: uv run python ${{ env.INGESTION_ENTRYPOINT }}
       - name: Reveal Secret
