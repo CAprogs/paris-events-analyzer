@@ -14,6 +14,8 @@ jobs:
     env:
       PYTHON: "3.12"
       INGESTION_ENTRYPOINT: "src/ingestion/main.py"
+      DBT_ENV_SECRET_MINIO_ACCESS_KEY: ${{ secrets.DBT_ENV_SECRET_MINIO_ACCESS_KEY }}
+      DBT_ENV_SECRET_MINIO_SECRET_KEY: ${{ secrets.DBT_ENV_SECRET_MINIO_SECRET_KEY }}
 
     steps:
       - name: Check out ${{ github.repository }} PR code
@@ -55,10 +57,15 @@ jobs:
       - name: Setting up MinIO
         run: |
           docker compose up -d
-        env:
-            DBT_ENV_SECRET_MINIO_ACCESS_KEY: ${{ secrets.DBT_ENV_SECRET_MINIO_ACCESS_KEY }}
-            DBT_ENV_SECRET_MINIO_SECRET_KEY: ${{ secrets.DBT_ENV_SECRET_MINIO_SECRET_KEY }}
       - name: Run ingestion workflow
         run: uv run python ${{ env.INGESTION_ENTRYPOINT }}
       - name: Reveal Secret
-        run: echo "First secret unlocked -> ${{ vars.INDICE_1 }}"
+        uses: thollander/actions-comment-pull-request@v3
+        with:
+          message: |
+            P-A-R-F-A-I-T !
+
+            Fini `pip`, `pipenv`, `poetry` et tralala, UV c'est LE gestionnaire tout-en un qu'il nous fallait ! :rocket:
+
+            Voici la première pièce du puzzle :eyes: : [ouvre moi :file_folder:](${{ vars.INDICE_1 }})
+          reactions: hooray
