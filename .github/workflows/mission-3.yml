@@ -2,7 +2,8 @@
 name: check mission 3
 
 on:
-  pull_request:
+  pull_request_target:
+    types: [opened, synchronize]
     branches: [ "mission-3-commitizen-deptry" ]
 
 
