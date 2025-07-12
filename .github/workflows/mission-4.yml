@@ -45,4 +45,12 @@ jobs:
       - name: Run the pre-commit hooks via just
         run: uv run just quality-all
       - name: Reveal Secret
-        run: echo "Fourth secret unlocked -> ${{ vars.INDICE_4 }}"
+        uses: thollander/actions-comment-pull-request@v3
+        with:
+          message: |
+            Superbe boulot !
+
+            Ruff + Mypy = :heart:, un code standardisé et beaucoup moins de bugs, quel bonheur !
+
+            Tu l'as bien mérité, voici ton indice : [ouvre moi :file_folder:](${{ vars.INDICE_4 }})
+          reactions: hooray

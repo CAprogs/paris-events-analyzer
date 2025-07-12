@@ -1,0 +1,3 @@
+mission-4-ruff-mypy:
+  - base-branch: 'mission-4-ruff-mypy'
+  - head-branch: 'mission-4-ruff-mypy'
