@@ -17,8 +17,10 @@ jobs:
       PYTHON: "3.12"
 
     steps:
-      - name: Check out ${{ github.repository }} repository code
+      - name: Check out ${{ github.repository }} PR code
         uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
       - name: Check file existence
         uses: andstor/file-existence-action@v3
         with:
