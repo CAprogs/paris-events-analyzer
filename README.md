@@ -14,5 +14,5 @@
 # Mission 2 - pre-commit
 
 ## Pas à pas 🐢
- 
+
 Voir [Notion](https://tough-cyclone-37b.notion.site/Mission-2-pre-commit-20ac1cee419a802badefd1145627abcd)
