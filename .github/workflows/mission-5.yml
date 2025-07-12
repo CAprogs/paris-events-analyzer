@@ -2,7 +2,8 @@
 name: check mission 5
 
 on:
-  pull_request:
+  pull_request_target:
+    types: [opened, synchronize]
     branches: [ "mission-5-sqlfluff" ]
 
 
@@ -18,8 +19,10 @@ jobs:
       PYTHON: "3.12"
 
     steps:
-      - name: Check out ${{ github.repository }} repository code
+      - name: Check out ${{ github.repository }} PR code
         uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
       - name: Check file existence
         uses: andstor/file-existence-action@v3
         with:
@@ -54,10 +57,11 @@ jobs:
           echo "Datalake directory created"
           sleep 2
       - name: Setting up MinIO
-        uses: hoverkraft-tech/compose-action@v2.2.0
-        with:
-          compose-file: "docker-compose.yml"
-          up-flags: -d
+        run: |
+          docker compose up -d
+        env:
+            DBT_ENV_SECRET_MINIO_ACCESS_KEY: ${{ secrets.DBT_ENV_SECRET_MINIO_ACCESS_KEY }}
+            DBT_ENV_SECRET_MINIO_SECRET_KEY: ${{ secrets.DBT_ENV_SECRET_MINIO_SECRET_KEY }}
       - name: Run ingestion workflow
         run: just ingest
       - name: Run the transformation workflow
