@@ -2,7 +2,8 @@
 name: check mission 1
 
 on:
-  pull_request:
+  pull_request_target:
+    types: [opened, synchronize]
     branches: [ "mission-1-uv" ]
 
 
@@ -15,8 +16,10 @@ jobs:
       INGESTION_ENTRYPOINT: "src/ingestion/main.py"
 
     steps:
-      - name: Check out ${{ github.repository }} repository code
+      - name: Check out ${{ github.repository }} PR code
         uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
       - name: Check file existence
         uses: andstor/file-existence-action@v3
         with:
