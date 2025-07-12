@@ -12,5 +12,6 @@ dependencies = [
 
 [dependency-groups]
 dev = [
-    "rust-just>=1.40.0",
+    "pre-commit>=4.2.0",
+    "rust-just>=1.41.0",
 ]
