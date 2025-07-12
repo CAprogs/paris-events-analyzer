@@ -59,12 +59,17 @@ jobs:
       - name: Setting up MinIO
         run: |
           docker compose up -d
-        env:
-            DBT_ENV_SECRET_MINIO_ACCESS_KEY: ${{ secrets.DBT_ENV_SECRET_MINIO_ACCESS_KEY }}
-            DBT_ENV_SECRET_MINIO_SECRET_KEY: ${{ secrets.DBT_ENV_SECRET_MINIO_SECRET_KEY }}
       - name: Run ingestion workflow
         run: just ingest
       - name: Run the transformation workflow
         run: just dbt-run
       - name: Reveal Secret
-        run: echo "Last secret unlocked -> ${{ vars.INDICE_5 }}"
+        uses: thollander/actions-comment-pull-request@v3
+        with:
+          message: |
+            Beau travail ! 
+            
+            Sqlfluff est en place :white_check_mark:, notre SQL restera propre et lisible.
+            
+            Tu l'as mérité, voici ton dernier indice : [ouvre moi :file_folder:](${{ vars.INDICE_5 }})
+          reactions: hooray

@@ -1,0 +1,3 @@
+mission-5-sqlfluff:
+  - base-branch: 'mission-5-sqlfluff'
+  - head-branch: 'mission-5-sqlfluff'
