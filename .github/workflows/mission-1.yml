@@ -9,6 +9,8 @@ on:
 
 jobs:
   check-mission-1:
+    permissions:
+      pull-requests: write
     runs-on: ubuntu-latest
 
     env:
