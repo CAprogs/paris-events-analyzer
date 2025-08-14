@@ -10,6 +10,7 @@
 
 # PARIS EVENTS ANALYZER
 Bonjour, je m'appelle Zixi, je suis avec Nathan.
+Je suis en train de faire mon 1st PR.
 </div>
 
 
