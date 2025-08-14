@@ -9,7 +9,7 @@
 
 
 # PARIS EVENTS ANALYZER
-
+Bonjour, je m'appelle Zixi, je suis avec Nathan.
 </div>
 
 
@@ -130,3 +130,5 @@ Pourquoi ce choix ?
 
 > [!NOTE]
 > Si vous n'êtes intéressés que par le projet final, vous pouvez le retrouver [ici](https://github.com/CAprogs/paris-events-analyzer/tree/end)
+
+
