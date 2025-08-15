@@ -142,7 +142,6 @@ uv pip install -e .
 > [!IMPORTANT]
 > Avant de lancer le projet, assurez-vous que :
 > - Le `docker daemon` est en cours d'exécution (Docker Desktop doit être lancé)
-> - Vous avez créer le dossier de persistance `datalake` à la racine de votre projet
 > - Vous avez configuré les variables d'environnement nécessaires dans le fichier `.env` à la racine du projet comme suit :
 >   ```bash
 >   DBT_ENV_SECRET_MINIO_ACCESS_KEY="<YOUR_ACCESS_KEY>"
