@@ -106,7 +106,8 @@ select = [
 ignore = [
     "D300",    # Utilisation de triple quotes pour les docstrings multilignes
     "D206",    # Indentation des docstrings
-    "S608"     # Possible injection SQL dans les requêtes
+    "S608",    # Possible injection SQL dans les requêtes
+    "D100"     # Docstring manquante dans les modules publiques
 ]
 
 # Toutes les règles peuvent être corrigées automatiquement
