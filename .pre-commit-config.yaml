@@ -15,3 +15,9 @@ repos:
           stages: [commit-msg]
         - id: commitizen-branch
           stages: [pre-push]
+
+    - repo: http://github.com/fpgmaas/deptry.git
+      rev: "0.23.1"
+      hooks:
+        - id: deptry
+          args: [--ignore, DEP001]
