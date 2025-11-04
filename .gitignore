@@ -211,3 +211,7 @@ pea_cache/
 
 # data files
 datalake/
+
+
+# Pycharm
+.idea/

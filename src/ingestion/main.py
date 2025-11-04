@@ -1,5 +1,7 @@
 """main.py!"""
 
+from typing import Literal
+
 from src.logger.log_handler import log
 from write_to_storage import write_to_storage
 from get_file import get_file_from_url, get_url_from_endpoints
@@ -14,7 +16,7 @@ def ingest(
     client: Minio,
     session: CachedSession,
     endpoints_path: str = "src/ingestion/endpoints.json",
-    filetype: str = "parquet",
+    filetype: Literal["parquet", "json", "csv"] = "parquet",
 ) -> bool | None:
     """Print a url.
 

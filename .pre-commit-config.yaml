@@ -28,3 +28,9 @@ repos:
         - id: ruff-check #'ruff check'
           args: [ --fix ]
         - id: ruff-format #'ruff format"
+    - repo: http://github.com/pre-commit/mirrors-mypy
+      rev: v1.15.0
+      hooks:
+        - id: mypy
+          verbose: true
+          args : [ --install-types, --non-interactive, --pretty, --disallow-untyped-defs, --strict-equality,  --warn-no-return, --ignore-missing-imports, --no-namespace-packages]
