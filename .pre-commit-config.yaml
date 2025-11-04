@@ -29,7 +29,7 @@ repos:
           args: [ --fix ]
         - id: ruff-format #'ruff format"
     - repo: http://github.com/pre-commit/mirrors-mypy
-      rev: v1.15.0
+      rev: v1.18.2
       hooks:
         - id: mypy
           verbose: true
