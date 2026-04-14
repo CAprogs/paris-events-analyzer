@@ -8,7 +8,7 @@ from minio import Minio
 from requests_cache import CachedSession
 from src.logger import log
 
-from .get_file import get_file_from_url, get_url_from_endpoints
+from .get_file import FileType, get_file_from_url, get_url_from_endpoints
 from .write_to_storage import write_to_storage
 
 
@@ -16,7 +16,7 @@ def ingest(
     client: Minio,
     session: CachedSession,
     endpoints_path: str = "src/ingestion/endpoints.json",
-    filetype: str = "parquet",
+    filetype: FileType = "parquet",
 ) -> bool | None:
     """Run the ingestion pipeline from endpoint lookup to object storage."""
     # Get the URL from endpoints.json
@@ -26,6 +26,10 @@ def ingest(
     response = get_file_from_url(url=url, session=session)
 
     log.info("Response status: %s, from cache: %s", response["status"], response["from_cache"])
+
+    if response["response"] is None:
+        log.error("No file content was returned by the source endpoint.")
+        return False
 
     data = BytesIO(response["response"])
 

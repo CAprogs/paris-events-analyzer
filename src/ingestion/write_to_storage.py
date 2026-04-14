@@ -6,7 +6,8 @@ from io import BytesIO
 from minio import Minio
 from minio.error import S3Error
 from src.logger import log
-from typing import Literal
+
+from .get_file import FileType
 
 
 def today_date() -> str:
@@ -19,9 +20,7 @@ def day_before_date() -> str:
     return (datetime.now() - timedelta(days=1)).strftime("%Y-%m-%d")
 
 
-def write_to_storage(
-    client: Minio, data: BytesIO, filetype: Literal["parquet", "json", "csv"] = "parquet"
-) -> bool | None:
+def write_to_storage(client: Minio, data: BytesIO, filetype: FileType = "parquet") -> bool | None:
     """Upload a file-like payload to MinIO if the daily object does not already exist."""
     try:
         # Check if the bucket exists

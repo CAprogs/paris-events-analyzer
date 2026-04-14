@@ -4,11 +4,22 @@ import json
 
 from requests_cache import CachedSession
 from src.logger import log
-from typing import Literal
+from typing import Literal, TypedDict
+
+
+FileType = Literal["parquet", "json", "csv"]
+
+
+class DownloadResponse(TypedDict):
+    """Structured response returned by the download helper."""
+
+    status: int
+    from_cache: bool
+    response: bytes | None
 
 
 def get_url_from_endpoints(
-    endpoints_path: str = "src/ingestion/endpoints.json", filetype: Literal["parquet", "json", "csv"] = "parquet"
+    endpoints_path: str = "src/ingestion/endpoints.json", filetype: FileType = "parquet"
 ) -> str | None:
     """Return the configured source URL for a given file type."""
     with open(endpoints_path) as file:
@@ -19,7 +30,7 @@ def get_url_from_endpoints(
     return endpoints[filetype]
 
 
-def get_file_from_url(url: str | None, session: CachedSession) -> dict:
+def get_file_from_url(url: str | None, session: CachedSession) -> DownloadResponse:
     """Download a remote file and return its payload with cache metadata."""
     if url is None:
         log.error("No URL provided.")
