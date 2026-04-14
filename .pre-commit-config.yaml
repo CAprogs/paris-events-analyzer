@@ -12,3 +12,11 @@ repos:
       hooks:
         - id: commitizen
           stages: [commit-msg]
+    - repo: local
+      hooks:
+        - id: deptry
+          name: deptry
+          entry: uv run deptry .
+          language: system
+          pass_filenames: false
+          types: [python]
