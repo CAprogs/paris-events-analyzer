@@ -4,7 +4,11 @@ __pycache__/
 build/
 dist/
 wheels/
+tools/
+datalake/
+pea_cache/
 *.egg-info
-
+.env  
+*.env
 # Virtual environments
 .venv

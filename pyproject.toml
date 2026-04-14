@@ -1,0 +1,12 @@
+[project]
+name = "paris-events-analyzer"
+version = "0.1.0"
+description = "project in the scope of datacademie 2026"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = []
+
+[dependency-groups]
+dev = [
+    "rust-just>=1.49.0",
+]
