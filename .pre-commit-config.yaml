@@ -1,6 +1,4 @@
-default_install_hook_types:
-  - pre-commit
-  - commit-msg
+default_install_hook_types: [pre-commit, pre-push, commit-msg]
 
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
@@ -12,6 +10,15 @@ repos:
         args: [--allow-multiple-documents]
       - id: check-added-large-files
       - id: check-toml
+
+  - repo: https://github.com/commitizen-tools/commitizen
+    rev: v4.13.10
+    hooks:
+      - id: commitizen
+        stages: [commit-msg]
+      - id: commitizen-branch
+        stages: [pre-push]
+
 
   - repo: https://github.com/fpgmaas/deptry.git
     rev: "0.25.1"
