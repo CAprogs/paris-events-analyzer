@@ -98,11 +98,11 @@ duckdb-ui: dbt-run
 
 # Run the ingestion workflow
 ingest:
-		@uv run python {{INGESTION_ENTRYPOINT}}
+		@PYTHONPATH=src uv run python {{INGESTION_ENTRYPOINT}}
 
 # Run the exposition workflow
 expose:
-		@uv run streamlit run {{WEB_APP_ENTRYPOINT}}
+		@PYTHONPATH=src uv run streamlit run {{WEB_APP_ENTRYPOINT}}
 
 # Run the entire workflow process, from ingestion to exposition
 final-workflow: ingest dbt-run expose

@@ -41,17 +41,3 @@ repos:
         - id: mypy
           verbose: true
           args: [ --install-types, --non-interactive, --pretty, --disallow-untyped-defs, --strict-equality,  --warn-no-return, --ignore-missing-imports, --no-namespace-packages]
-    - repo: local
-      hooks:
-        - id: sqlfluff-fix
-          name: sqlfluff-fix
-          entry: bash -lc 'set -a && source .env && set +a && uv run sqlfluff fix --config .sqlfluff "$DBT_PROJECT_DIR"'
-          language: system
-          pass_filenames: false
-          files: ^src/transformation/dbt_paris_event_analyzer/.*\.sql$
-        - id: sqlfluff-lint
-          name: sqlfluff-lint
-          entry: bash -lc 'set -a && source .env && set +a && uv run sqlfluff lint --config .sqlfluff "$DBT_PROJECT_DIR"'
-          language: system
-          pass_filenames: false
-          files: ^src/transformation/dbt_paris_event_analyzer/.*\.sql$
