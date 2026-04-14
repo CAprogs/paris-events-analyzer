@@ -10,8 +10,11 @@ import logging
 from rich.logging import RichHandler
 
 FORMAT = "%(message)s"
-logging.basicConfig(level="NOTSET", format=FORMAT, datefmt="[%X]", handlers=[RichHandler()], markup=True)
+logging.basicConfig(level="NOTSET", format=FORMAT, datefmt="[%X]", handlers=[RichHandler(markup=True)])
 log = logging.getLogger("rich")
+
+
+type FileType = Literal["parquet", "json", "csv"]
 
 
 def today_date() -> str:
@@ -24,9 +27,7 @@ def day_before_date() -> str:
     return (datetime.now() - timedelta(days=1)).strftime("%Y-%m-%d")
 
 
-def write_to_storage(
-    client: Minio, data: BytesIO, filetype: Literal["parquet", "json", "csv"] = "parquet"
-) -> bool | None:
+def write_to_storage(client: Minio, data: BytesIO, filetype: FileType = "parquet") -> bool | None:
     """Upload in-memory data to MinIO if the destination object does not exist.
 
     Args:

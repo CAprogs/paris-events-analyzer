@@ -1,18 +1,19 @@
 """Entry point to orchestrate retrieval and storage of Paris events data."""
 
 from write_to_storage import write_to_storage
-from get_file import get_file_from_url, get_url_from_endpoints
+from get_file import DownloadResponse, FileType, get_file_from_url, get_url_from_endpoints
 from requests_cache import CachedSession
 from datetime import timedelta
 from minio import Minio
 from io import BytesIO
+from typing import cast
 import os
 
 import logging
 from rich.logging import RichHandler
 
 FORMAT = "%(message)s"
-logging.basicConfig(level="NOTSET", format=FORMAT, datefmt="[%X]", handlers=[RichHandler()], markup=True)
+logging.basicConfig(level="NOTSET", format=FORMAT, datefmt="[%X]", handlers=[RichHandler(markup=True)])
 log = logging.getLogger("rich")
 
 
@@ -20,7 +21,7 @@ def ingest(
     client: Minio,
     session: CachedSession,
     endpoints_path: str = "src/ingestion/endpoints.json",
-    filetype: str = "parquet",
+    filetype: FileType = "parquet",
 ) -> bool | None:
     """Run the ingestion flow from endpoint lookup to MinIO upload.
 
@@ -37,11 +38,11 @@ def ingest(
     url = get_url_from_endpoints(endpoints_path=endpoints_path, filetype=filetype)
 
     # Load the parquet file in memory
-    response = get_file_from_url(url=url, session=session)
+    response: DownloadResponse = get_file_from_url(url=url, session=session)
 
     log.info(f"Response status: {response['status']}, From cache: {response['from_cache']}")
 
-    data = BytesIO(response["response"])
+    data = BytesIO(cast(bytes, response["response"]))
 
     # Try to write the data to MinIO storage
     result = write_to_storage(client=client, data=data, filetype=filetype)

@@ -1,19 +1,30 @@
 """Utilities to resolve ingestion endpoints and download source files."""
 
 from requests_cache import CachedSession
-from typing import Literal
+from typing import Literal, TypedDict, cast
 import json
 
 import logging
 from rich.logging import RichHandler
 
 FORMAT = "%(message)s"
-logging.basicConfig(level="NOTSET", format=FORMAT, datefmt="[%X]", handlers=[RichHandler()], markup=True)
+logging.basicConfig(level="NOTSET", format=FORMAT, datefmt="[%X]", handlers=[RichHandler(markup=True)])
 log = logging.getLogger("rich")
 
 
+type FileType = Literal["parquet", "json", "csv"]
+
+
+class DownloadResponse(TypedDict):
+    """Structured response returned by get_file_from_url."""
+
+    status: int
+    from_cache: bool
+    response: bytes | None
+
+
 def get_url_from_endpoints(
-    endpoints_path: str = "src/ingestion/endpoints.json", filetype: Literal["parquet", "json", "csv"] = "parquet"
+    endpoints_path: str = "src/ingestion/endpoints.json", filetype: FileType = "parquet"
 ) -> str | None:
     """Return the endpoint URL for a given file type from the endpoints file.
 
@@ -25,14 +36,14 @@ def get_url_from_endpoints(
         The URL associated with filetype, or None when the key is missing.
     """
     with open(endpoints_path) as file:
-        endpoints: dict = json.load(file)
-    if filetype not in endpoints.keys():
+        endpoints = cast(dict[FileType, str], json.load(file))
+    if filetype not in endpoints:
         log.error(f"filetype '{filetype}' not found in endpoints.json")
         return None
     return endpoints[filetype]
 
 
-def get_file_from_url(url: str | None, session: CachedSession) -> dict:
+def get_file_from_url(url: str | None, session: CachedSession) -> DownloadResponse:
     """Download file content from a URL using the provided cached session.
 
     Args:
