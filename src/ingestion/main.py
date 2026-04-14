@@ -29,7 +29,7 @@ def ingest(client: Minio, session: CachedSession, endpoints_path: str = "src/ing
                             data=data,
                             filetype=filetype
                             )
-    
+
     return result
 
 
