@@ -1,6 +1,6 @@
 from rich import print as rprint
-from src.ingestion.write_to_storage import write_to_storage
-from src.ingestion.get_file import get_file_from_url, get_url_from_endpoints
+from write_to_storage import write_to_storage
+from get_file import get_file_from_url, get_url_from_endpoints
 from requests_cache import CachedSession
 from datetime import timedelta
 from minio import Minio
