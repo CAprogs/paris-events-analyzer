@@ -1,3 +1,5 @@
+default_install_hook_types: [pre-commit, pre-push, commit-msg]
+
 repos:
     - repo: https://github.com/pre-commit/pre-commit-hooks
       rev: v6.0.0
@@ -11,5 +13,6 @@ repos:
       rev: v4.13.10
       hooks:
         - id: commitizen
+          stages: [commit-msg]
         - id: commitizen-branch
           stages: [pre-push]
