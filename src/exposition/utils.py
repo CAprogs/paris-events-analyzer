@@ -1,13 +1,14 @@
-from duckdb import connect, DuckDBPyConnection
-import streamlit as st
-from exposition.tables import Table
-from rich import print as rprint
 from pandas import DataFrame
+import streamlit as st
+from duckdb import DuckDBPyConnection, connect
+
+from exposition.tables import Table
+from src.logger.log_handler import log
 
 
 @st.cache_resource
 def get_connection(database: str) -> DuckDBPyConnection:
-    rprint(f"Connecting to DuckDB database: [bold magenta]{database}[/bold magenta]")
+    log.info("Connecting to DuckDB database: %s", database)
     return connect(database, read_only=True)
 
 
@@ -18,6 +19,6 @@ def fetch_data(tables: list[Table]) -> dict[str, DataFrame]:
         conn = get_connection(table.database)
         query = f"SELECT {', '.join(table.columns)} FROM {table.schema}.{table.name}"
         df = conn.execute(query).df()
-        rprint(f"Fetched data from [bold yellow]{table.schema}.{table.name}[/bold yellow]")
+        log.info("Fetched data from %s.%s", table.schema, table.name)
         results[table.name] = df
     return results
