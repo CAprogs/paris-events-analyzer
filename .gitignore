@@ -5,6 +5,10 @@ build/
 dist/
 wheels/
 *.egg-info
+.env
+datalake/
+pea_cache/
 
 # Virtual environments
 .venv
+
