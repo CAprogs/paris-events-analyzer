@@ -1,13 +1,13 @@
 from rich import print as rprint
-from write_to_storage import write_to_storage
-from get_file import get_file_from_url, get_url_from_endpoints
+from src.ingestion.write_to_storage import write_to_storage
+from src.ingestion.get_file import get_file_from_url, get_url_from_endpoints
 from requests_cache import CachedSession
 from datetime import timedelta
 from minio import Minio
 from io import BytesIO
 import os
 
-
+# maj main.py
 def ingest(client: Minio, session: CachedSession, endpoints_path: str = "src/ingestion/endpoints.json", filetype: str = "parquet") -> bool | None:
 
     # Get the URL from endpoints.json
