@@ -1,3 +1,5 @@
+"""Entry point for the Paris Events Analyzer Streamlit application."""
+
 from src.exposition.tables import Table
 from src.exposition.main import serve
 import dotenv

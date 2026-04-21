@@ -55,3 +55,30 @@ quality-default: quality
 quality-all: quality
 	@echo "\nRunning pre-commit on all files\n"
 	@uv run pre-commit run --all-files
+
+# DBT
+
+INGESTION_ENTRYPOINT := "src/ingestion/main.py"
+DATABASE_PATH := "warehouse/prod.duckdb"
+
+# Debug the dbt project configuration
+dbt-debug:
+    @echo "\nDebugging profile config .."
+    @uv run dbt debug --config-dir
+    @uv run dbt debug
+
+# Run the dbt project
+dbt-run: dbt-debug
+    @echo "\nRunning dbt models .."
+    @uv run dbt run
+
+# Clean the dbt project
+dbt-clean: dbt-debug
+    @echo "\nCleaning dbt project .."
+    @uv run dbt clean --no-clean-project-files-only
+
+# Workflow
+
+# Run the ingestion workflow
+ingest:
+	@uv run python {{INGESTION_ENTRYPOINT}}
