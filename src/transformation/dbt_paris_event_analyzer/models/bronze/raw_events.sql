@@ -1,4 +1,4 @@
 
 
-select *
-from read_parquet('{{ get_today_file("parquet") }}')
+SELECT *
+FROM read_parquet('{{ get_today_file("parquet") }}')
